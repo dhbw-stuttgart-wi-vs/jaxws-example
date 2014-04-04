@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://dhbw.de/vs/jaxws/"
+        	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             targetNamespace="http://dhbw.de/vs/jaxws/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             name="TestWebServiceInterface">
+
+
+	<!-- Data types in an embedded XML Schema -->
+    <types>
+    
+       <xs:schema 
+       		targetNamespace="http://dhbw.de/vs/jaxws/" 
+       		xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://dhbw.de/vs/jaxws/" 
+       		version="1.0">
+			
+			<xs:element name="demoMethodParameters" type="xsd:string"/>
+			<xs:element name="demoMethodResponse" type="xsd:string"/>
+
+		</xs:schema>
+
+    </types>
+
+	<!-- Messages that reference XML Schema data types -->
+    <message name="demoMethodParameters">
+        <part name="parameters" element="tns:demoMethodParameters"/>
+    </message>
+    
+    <message name="demoMethodResponse">
+        <part name="parameters" element="tns:demoMethodResponse"/>
+    </message>
+
+	<!-- The operations of a specific port --> 
+    <portType name="DemoService">
+    
+        <operation name="demoMethod">
+            <input message="tns:demoMethodParameters"/>
+            <output message="tns:demoMethodResponse"/>
+        </operation>
+      
+    </portType>
+    
+    <!-- Bind a port to SOAP-HTTP and use document/literal -->
+    <binding name="DemoServicePortBinding" type="tns:DemoService">
+    
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        
+        <operation name="demoMethod">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        
+    </binding>
+
+	<!-- And publish it to a concrete URL -->
+    <service name="TestWebService">
+        <port name="DemoServicePort" binding="tns:DemoServicePortBinding">
+            <soap:address location="http://localhost:8888/testservice/"/>
+        </port>
+    </service>
+
+</definitions>

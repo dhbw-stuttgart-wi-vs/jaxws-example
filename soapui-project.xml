@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="DHBW Verteilte Systeme JAXWS" resourceRoot="${projectDir}" soapui-version="4.6.4" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DemoServicePortBinding" type="wsdl" bindingName="{http://dhbw.de/vs/jaxws/}DemoServicePortBinding" soapVersion="1_1" anonymous="optional" definition="hello.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/Users/dp/Documents/Dokumente/DHBW/Lehre/Verteilte%20Systeme/AktuelleFolien/Beispiele%20und%20Material/vs04a-jaxws%20web%20services/jaxws-example/hello.wsdl"><con:part><con:url>file:/Users/dp/Documents/Dokumente/DHBW/Lehre/Verteilte%20Systeme/AktuelleFolien/Beispiele%20und%20Material/vs04a-jaxws%20web%20services/jaxws-example/hello.wsdl</con:url><con:content><![CDATA[<definitions targetNamespace="http://dhbw.de/vs/jaxws/" name="TestWebServiceInterface" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://dhbw.de/vs/jaxws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <!--Data types in an embedded XML Schema-->
+  <types>
+    <xs:schema targetNamespace="http://dhbw.de/vs/jaxws/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="demoMethodParameters" type="xsd:string"/>
+      <xs:element name="demoMethodResponse" type="xsd:string"/>
+    </xs:schema>
+  </types>
+  <!--Messages that reference XML Schema data types-->
+  <message name="demoMethodParameters">
+    <part name="parameters" element="tns:demoMethodParameters"/>
+  </message>
+  <message name="demoMethodResponse">
+    <part name="parameters" element="tns:demoMethodResponse"/>
+  </message>
+  <!--The operations of a specific port-->
+  <portType name="DemoService">
+    <operation name="demoMethod">
+      <input message="tns:demoMethodParameters"/>
+      <output message="tns:demoMethodResponse"/>
+    </operation>
+  </portType>
+  <!--Bind a port to SOAP-HTTP and use document/literal-->
+  <binding name="DemoServicePortBinding" type="tns:DemoService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="demoMethod">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <!--And publish it to a concrete URL-->
+  <service name="TestWebServiceInterface">
+    <port name="DemoServicePort" binding="tns:DemoServicePortBinding">
+      <soap:address location="http://localhost:8888/testservice/"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8888/testservice/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="demoMethod" bindingOperationName="demoMethod" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/testservice/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:jax="http://dhbw.de/vs/jaxws/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <jax:demoMethodParameters>lalalallala</jax:demoMethodParameters>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dhbw.de/vs/jaxws/DemoService/demoMethodRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="DemoServicePortBinding TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="demoMethod TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="demoMethod"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DemoServicePortBinding</con:interface><con:operation>demoMethod</con:operation><con:request name="demoMethod"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/testservice/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:jax="http://dhbw.de/vs/jaxws/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <jax:demoMethodParameters>?</jax:demoMethodParameters>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://dhbw.de/vs/jaxws/DemoService/demoMethodRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
